@@ -25,7 +25,7 @@
                     <div class="col-md-6">
                         <div class="form-group form-group-default required">
                             <label>C.I</label>
-                            <input name="per_ci" type="text" class="form-control "
+                            <input name="per_ci" type="text" class="form-control input-number"
                                 placeholder="Ingrese cédula de identidad" value="{{ $person->per_ci }}">
                         </div>
                     </div>
@@ -53,14 +53,14 @@
                     <div class="col-md-6">
                         <div class="form-group form-group-default">
                             <label>Celular</label>
-                            <input name="per_celular" type="text" class="form-control" placeholder="Ingrese celular"
+                            <input name="per_celular" type="text" class="form-control input-number" placeholder="Ingrese celular"
                                 value="{{ $person->per_celular }}">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group form-group-default">
                             <label>Teléfono</label>
-                            <input name="per_telefono" type="text" class="form-control"
+                            <input name="per_telefono" type="text" class="form-control input-number"
                                 placeholder="Ingrese teléfono" value="{{ $person->per_telefono }}">
                         </div>
                     </div>

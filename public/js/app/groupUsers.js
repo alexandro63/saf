@@ -7,7 +7,7 @@ $(document).ready(function () {
             type: "GET",
         },
         columns: [
-            { data: "gru_name" },
+            { data: "gru_nombre" },
             { data: "gru_obs" },
             { data: "gru_estado" },
             { data: "action", orderable: false, searchable: false },

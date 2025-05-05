@@ -24,7 +24,7 @@
                     <div class="col-md-6 pr-0 ">
                         <div class="form-group form-group-default required">
                             <label>Nombre</label>
-                            <input name="gru_name" type="text" class="form-control" placeholder="Ingrese nombre">
+                            <input name="gru_nombre" type="text" class="form-control" placeholder="Ingrese nombre">
                         </div>
                     </div>
                     <div class="col-md-6">

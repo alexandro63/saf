@@ -20,8 +20,8 @@ class GroupAssignController extends Controller
                 ->orderBy('gus_id', 'desc')->get();
 
             return DataTables::of($group_assign)
-                ->addColumn('group_name', function ($row) {
-                    return $row->group->gru_name;
+                ->addColumn('gru_nombre', function ($row) {
+                    return $row->group->gru_nombre;
                 })
 
                 ->addColumn('usuario_info', function ($row) {

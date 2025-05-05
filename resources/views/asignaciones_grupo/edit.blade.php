@@ -39,7 +39,7 @@
                         <div class="form-group form-group-default required">
                             <label for="gus_gru_id">Grupo</label>
                             <select name="gus_gru_id" id="gus_gru_id" class="form-control">
-                                <option value="{{ $group_assign->gus_gru_id }}">{{ $group_assign->group->gru_name }}
+                                <option value="{{ $group_assign->gus_gru_id }}">{{ $group_assign->group->gru_nombre }}
                                 </option>
                             </select>
                         </div>

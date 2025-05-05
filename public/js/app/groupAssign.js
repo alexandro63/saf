@@ -7,7 +7,7 @@ $(document).ready(function () {
             type: "GET",
         },
         columns: [
-            { data: "group_name" },
+            { data: "gru_nombre" },
             { data: "usuario_info" },
             { data: "action", orderable: false, searchable: false },
         ],
@@ -91,7 +91,7 @@ $(document).ready(function () {
                     params.page = params.page || 1;
                     const formatted = data.data.map((item) => ({
                         id: item.gru_id,
-                        text: item.gru_name,
+                        text: item.gru_nombre,
                     }));
                     return {
                         results: formatted,

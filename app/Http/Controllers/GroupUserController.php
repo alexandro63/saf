@@ -15,7 +15,7 @@ class GroupUserController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $group_users = GroupUser::select(['gru_id', 'gru_name', 'gru_obs', 'gru_estado'])->orderBy('gru_id', 'desc')
+            $group_users = GroupUser::select(['gru_id', 'gru_nombre', 'gru_obs', 'gru_estado'])->orderBy('gru_id', 'desc')
                 ->get();
 
             return DataTables::of($group_users)
@@ -61,7 +61,7 @@ class GroupUserController extends Controller
     {
         $status = $request->has('gru_estado') ? 1 : 0;
         try {
-            $input = $request->only(['gru_id', 'gru_name', 'gru_obs']);
+            $input = $request->only(['gru_id', 'gru_nombre', 'gru_obs']);
             $input['gru_estado'] = $status;
             $group_user  = GroupUser::create($input);
 
@@ -116,10 +116,10 @@ class GroupUserController extends Controller
 
         if (request()->ajax()) {
             try {
-                $input = $request->only(['gru_id', 'gru_name', 'gru_obs']);
+                $input = $request->only(['gru_id', 'gru_nombre', 'gru_obs']);
 
                 $group_user = GroupUser::findOrFail($id);
-                $group_user->gru_name = $input['gru_name'];
+                $group_user->gru_nombre = $input['gru_nombre'];
                 $group_user->gru_obs = $input['gru_obs'];
                 $group_user->gru_estado = $request->has('gru_estado') ? 1 : 0;
                 $group_user->save();
@@ -180,7 +180,7 @@ class GroupUserController extends Controller
     {
         $term = $request->input('term');
         $page = $request->input('page', 1);
-        $groups = GroupUser::where('gru_name', 'like', '%' . $term . '%');
+        $groups = GroupUser::where('gru_estado',1)->where('gru_nombre', 'like', '%' . $term . '%');
 
         return $groups->paginate(5, ['*'], 'page', $page);
     }

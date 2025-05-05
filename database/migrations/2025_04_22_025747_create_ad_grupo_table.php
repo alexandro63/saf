@@ -11,7 +11,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::disableForeignKeyConstraints();
 
         Schema::create('ad_grupo', function (Blueprint $table) {
             $table->id('gru_id');
@@ -20,8 +19,6 @@ return new class extends Migration
             $table->tinyInteger('gru_estado')->default(1);
             $table->timestamps();
         });
-
-        Schema::enableForeignKeyConstraints();
     }
 
     /**

@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
             'per_id' => $people->per_id,
             'status' => 1,
             'email' => 'admin@gmail.com',
-            'password' => bcrypt('12345678'),
+            'password' => bcrypt('123456'),
         ]);
 
         $batchSize = 1000;
@@ -42,7 +42,7 @@ class DatabaseSeeder extends Seeder
                     'per_id'    => $person->per_id,
                     'status'    => rand(0, 1),
                     'email'     => $person->per_nombres . '.' . $person->per_id . '@gmail.com',
-                    'password'  => bcrypt('password123'),
+                    'password'  => bcrypt('123456'),
                 ]);
             }
         }

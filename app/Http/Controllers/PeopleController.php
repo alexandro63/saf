@@ -186,10 +186,13 @@ class PeopleController extends Controller
      */
     public function getPeopleData(Request $request)
     {
-        $people = People::where('per_ci', $request->term)
-            ->orWhere('per_nombres', 'like', '%' . $request->term . '%')
-            ->orWhere('per_apellidopat', 'like', '%' . $request->term . '%')
-            ->orWhere('per_apellidomat', 'like', '%' . $request->term . '%');
+        $people = People::where('per_estado', 1)
+            ->where(function ($query) use ($request) {
+                $query->where('per_ci', $request->term)
+                    ->orWhere('per_nombres', 'like', '%' . $request->term . '%')
+                    ->orWhere('per_apellidopat', 'like', '%' . $request->term . '%')
+                    ->orWhere('per_apellidomat', 'like', '%' . $request->term . '%');
+            });
 
         return $people->paginate(5, ['*'], 'page', $request->page);
     }
