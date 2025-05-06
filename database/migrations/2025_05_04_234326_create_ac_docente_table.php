@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('doc_observaciones')->nullable();
             $table->boolean('doc_estado')->default(0);
             $table->date('doc_fec_ing');
+
             $table->index('doc_per_id');
             $table->timestamps();
         });

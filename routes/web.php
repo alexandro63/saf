@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\People;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\DegreeController;
 use App\Http\Controllers\PeopleController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\GroupUserController;
 use App\Http\Controllers\GroupAssignController;
 use App\Http\Controllers\OtherIncomeController;
@@ -17,7 +19,6 @@ use App\Http\Controllers\EnrolledStudentController;
 use App\Http\Controllers\TeacherSettingsController;
 use App\Http\Controllers\AcademicPlanningController;
 use App\Http\Controllers\StudentEnrollmentController;
-use App\Models\People;
 
 Route::get('/', function () {
     return redirect('/login');
@@ -55,16 +56,20 @@ Route::middleware(['atlantis_menu', 'setSessionData'])->group(function () {
 
     /**Registration */
 
-    // Others Teachers
+    // Teachers
     Route::resource('registration/teachers', TeacherController::class);
 
-    //Others Subjets
-    Route::resource('registration/others/subjects', SubjectController::class);
+    //Degrees
+    Route::resource('registration/degrees', DegreeController::class);
+    Route::get('registration/get-degrees', [DegreeController::class, 'getDegreesData']);
 
-    //Others Degrees
-    Route::resource('registration/others/degrees', DegreeController::class);
+    //Subjets
+    Route::resource('registration/subjects', SubjectController::class);
 
-    //Others Teacher Settings
+     //Classrooms
+     Route::resource('registration/classrooms', ClassroomController::class);
+
+    //Teacher Settings
     Route::resource('registration/others/teacher_settings', TeacherSettingsController::class);
 
     //Academic Planning

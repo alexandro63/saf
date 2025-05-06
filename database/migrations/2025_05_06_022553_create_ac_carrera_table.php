@@ -11,17 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::disableForeignKeyConstraints();
-
         Schema::create('ac_carrera', function (Blueprint $table) {
             $table->id('car_id');
             $table->string('car_nombre');
-            $table->string('car_descripcion');
-            $table->string('car_duracion');
+            $table->string('car_descripcion')->nullable();
+            $table->integer('car_duracion');
             $table->timestamps();
         });
-
-        Schema::enableForeignKeyConstraints();
     }
 
     /**

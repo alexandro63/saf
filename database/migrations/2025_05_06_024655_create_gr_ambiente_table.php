@@ -11,18 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::disableForeignKeyConstraints();
-
         Schema::create('gr_ambiente', function (Blueprint $table) {
             $table->id('amb_id');
             $table->string('amb_nombre');
-            $table->integer('amb_capacidad');
-            $table->string('amb_piso');
-            $table->text('amb_descripcion');
+            $table->integer('amb_capacidad')->nullable();
+            $table->integer('amb_piso')->nullable();
+            $table->string('amb_descripcion')->nullable();
             $table->timestamps();
         });
-
-        Schema::enableForeignKeyConstraints();
     }
 
     /**
