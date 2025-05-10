@@ -28,7 +28,7 @@ $(document).ready(function () {
     });
 
     /**COLLAPSE SUBMENU */
-    $(".nav-item")
+    $(".nav-itemm")
         .has(".collapse")
         .each(function () {
             var $item = $(this);

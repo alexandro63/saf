@@ -9,9 +9,9 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="d-flex align-items-center">
-                            <h4 class="card-title">Lista de Usuarios</h4>
+                            <h4 class="card-title">Lista de Materias</h4>
                             <button class="btn btn-primary btn-round ml-auto btn-modal"
-                                data-href="{{ route('users.create') }}" data-container=".modal_subject">
+                                data-href="{{ route('subjects.create') }}" data-container=".modal_subject">
                                 <i class="fa fa-plus"></i>
                                 Registrar
                             </button>

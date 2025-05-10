@@ -198,7 +198,7 @@ class UserController extends Controller
         $term = $request->input('term');
         $page = $request->input('page', 1);
 
-        $users = User::where('status', 1)->leftJoin('gr_persona', 'users.id', '=', 'gr_persona.per_id')
+        $users = User::where('status', 1)->leftJoin('gr_persona', 'users.per_id', '=', 'gr_persona.per_id')
             ->where(function ($query) use ($term) {
                 $query->where('users.user_name', 'like', '%' . $term . '%')
                     ->orWhere('gr_persona.per_nombres', 'like', '%' . $term . '%')

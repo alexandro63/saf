@@ -44,16 +44,16 @@ return [
                 'title' => 'Roles',
             ],
             [
+                'route' => 'people.index',
+                'title' => 'Personas',
+            ],
+            [
                 'route' => 'users.index',
                 'title' => 'Usuarios',
             ],
             [
                 'route' => 'group_users.index',
                 'title' => 'Grupo de usuarios',
-            ],
-            [
-                'route' => 'people.index',
-                'title' => 'Personas',
             ],
             [
                 'route' => 'group_assign.index',
@@ -64,20 +64,16 @@ return [
 
         'registration' => [
             [
-                'route' => 'teachers.index',
-                'title' => 'Docentes',
+                'route' => 'degrees.index',
+                'title' => 'Carreras',
             ],
             [
                 'route' => 'subjects.index',
                 'title' => 'Materias',
             ],
             [
-                'route' => 'degrees.index',
-                'title' => 'Carreras',
-            ],
-            [
-                'route' => 'teacher_settings.index',
-                'title' => 'Ajustes docentes',
+                'route' => 'teachers.index',
+                'title' => 'Docentes',
             ],
             [
                 'route' => 'academic_planning.index',
@@ -88,6 +84,14 @@ return [
                 'title' => 'Inscripción alumnos',
             ],
             [
+                'route' => 'enrolled_students.index',
+                'title' => 'Alumnos inscritos',
+            ],
+            [
+                'route' => 'teacher_settings.index',
+                'title' => 'Ajustes docentes',
+            ],
+            [
                 'route' => 'other_income.index',
                 'title' => 'Otros ingresos',
             ],
@@ -95,11 +99,6 @@ return [
                 'route' => 'administrative.index',
                 'title' => 'Administrativo',
             ],
-            [
-                'route' => 'enrolled_students.index',
-                'title' => 'Alumnos inscritos',
-            ],
-
         ],
 
     ],

@@ -24,7 +24,7 @@
                                     <tr>
                                         <th>Nombre de Carrera</th>
                                         <th>Descripción de Carrera</th>
-                                        <th>Duración de Carrera</th>
+                                        <th>Duración de Carrera (Meses)</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>

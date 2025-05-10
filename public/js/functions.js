@@ -1,11 +1,3 @@
-/**
- * Registra el manejo AJAX + validación para cualquier formulario.
- *
- * @param {string} formSelector   — Selector del <form> a interceptar (p.ej. 'form#add_user')
- * @param {string} [modalSelector] — Selector del contenedor modal a cerrar tras el éxito (p.ej. 'div.modal_user')
- * @author Ing Alexandro Fuentelsaz
- */
-
 /**DISABLED BUTTON SUBMIT */
 function __disable_submit_button(element) {
     element.attr("disabled", "disabled");

@@ -21,24 +21,25 @@
             <form action="{{ route('subjects.store') }}" method="POST" id="add_subject">
                 @csrf
                 <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col-md-6">
                         <div class="form-group form-group-default required">
-                            <label for="per_id">Nombre de Carrera</label>
-                            <select class="form-control" name="per_id" id="per_id" style="width: 100%">
+                            <label for="mat_car_id">Nombre de Carrera</label>
+                            <select class="form-control" name="mat_car_id" id="mat_car_id" style="width: 100%">
                                 <option value="" disabled>Seleccione</option>
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-6 pr-0 ">
+                    <div class="col-md-6">
                         <div class="form-group form-group-default required">
-                            <label>Nombre de Materia</label>
-                            <input name="user_name" type="text" class="form-control" placeholder="Ingrese materia">
+                            <label for="mat_nombre">Nombre de Materia</label>
+                            <input name="mat_nombre" type="text" class="form-control" placeholder="Ingrese materia"
+                                id="mat_nombre">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group form-group-default">
-                            <label for="">Descripción de Materia</label>
-                            <textarea name="" id="" cols="30" rows="10" placeholder="Ingrese descripción"></textarea>
+                            <label for="mat_descripcion">Descripción de Materia</label>
+                            <textarea name="mat_descripcion" id="mat_descripcion" rows="3" cols="45" placeholder="Ingrese descripción"></textarea>
                         </div>
                     </div>
                 </div>

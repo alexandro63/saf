@@ -7,9 +7,9 @@ $(document).ready(function () {
             type: "GET",
         },
         columns: [
-            { data: "user_name" },
-            { data: "per_id" },
-            { data: "status" },
+            { data: "car_nombre" },
+            { data: "mat_nombre" },
+            { data: "mat_descripcion" },
             { data: "action", orderable: false, searchable: false },
         ],
     });
@@ -28,43 +28,53 @@ $(document).ready(function () {
     });
 
     $("div.modal_subject").on("show.bs.modal", function () {
-        $("#per_id").select2({
-            dropdownParent: $("div.modal_subject"),
-            width: "100%",
-            placeholder: LANG.select,
-            allowClear: true,
-            minimumInputLength: 1,
-            ajax: {
-                url: "/registration/get-degrees",
-                type: "GET",
-                dataType: "json",
-                delay: 250,
-                data: (params) => ({
-                    term: params.term,
-                    page: params.page || 1,
-                }),
-                processResults: function (data, params) {
-                    params.page = params.page || 1;
-                    const formatted = data.data.map((item) => ({
-                        id: item.per_id,
-                        text:
-                            "( C.I. " +
-                            item.per_ci +
-                            ") " +
-                            item.per_nombres +
-                            " " +
-                            item.per_apellidopat,
-                    }));
-                    return {
-                        results: formatted,
-                        pagination: {
-                            more: data.last_page > params.page,
-                        },
-                    };
+        const $select = $("#mat_car_id");
+
+        if (!$select.hasClass("select2-hidden-accessible")) {
+            $select.select2({
+                dropdownParent: $("div.modal_subject"),
+                width: "100%",
+                placeholder: LANG.select,
+                allowClear: true,
+                minimumInputLength: 1,
+                ajax: {
+                    url: "/registration/get-degrees",
+                    type: "GET",
+                    dataType: "json",
+                    delay: 250,
+                    data: (params) => ({
+                        term: params.term,
+                        page: params.page || 1,
+                    }),
+                    processResults: function (data, params) {
+                        params.page = params.page || 1;
+                        const formatted = data.data.map((item) => ({
+                            id: item.car_id,
+                            text: item.car_nombre,
+                        }));
+                        return {
+                            results: formatted,
+                            pagination: {
+                                more: data.last_page > params.page,
+                            },
+                        };
+                    },
+                    cache: true,
+                    error: () => console.error("Fallo al cargar datos"),
                 },
-                cache: true,
-                error: () => console.error("Fallo al cargar datos"),
-            },
-        });
+            });
+
+            const currentId = $select.val();
+            const currentText = $select.find("option:selected").text();
+            if (currentId && currentText) {
+                const newOption = new Option(
+                    currentText,
+                    currentId,
+                    true,
+                    true
+                );
+                $select.append(newOption).trigger("change");
+            }
+        }
     });
 });

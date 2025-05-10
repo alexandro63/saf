@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Subject;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\Log;
 
 class SubjectController extends Controller
 {
@@ -11,6 +14,35 @@ class SubjectController extends Controller
      */
     public function index()
     {
+        if (request()->ajax()) {
+            $subjects = Subject::select(['mat_id', 'mat_car_id', 'mat_nombre', 'mat_descripcion'])->orderBy('mat_id', 'desc')
+                ->get();
+
+            return DataTables::of($subjects)
+                ->addColumn('action', function ($row) {
+                    $editUrl = route('subjects.edit', $row->mat_id);
+                    $deleteUrl = route('subjects.destroy', $row->mat_id);
+
+                    $buttons = '
+                    <button data-href="' . $editUrl . '" class="btn btn-icon btn-round btn-primary edit_subject">
+                        <i class="icon-pencil"></i>
+                    </button>
+                    &nbsp;';
+
+                    $buttons .= '
+                    <button data-href="' . $deleteUrl . '" class="btn btn-icon btn-round btn-danger delete_subject">
+                        <i class="icon-trash"></i>
+                    </button>';
+
+
+                    return $buttons;
+                })
+                ->editColumn('car_nombre', function ($row) {
+                    return $row->degree->car_nombre;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
         return view('materias.index');
     }
 
@@ -19,7 +51,7 @@ class SubjectController extends Controller
      */
     public function create()
     {
-        //
+        return view('materias.create');
     }
 
     /**
@@ -27,7 +59,29 @@ class SubjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $input = $request->only(['mat_car_id', 'mat_nombre', 'mat_descripcion']);
+            $subject  = Subject::create($input);
+
+            $output = [
+                'success' => true,
+                'data'    => $subject,
+                'msg'     => __('messages.add_success'),
+            ];
+        } catch (\Exception $e) {
+            Log::emergency(__('messages.error_log'), [
+                'Archivo' => $e->getFile(),
+                'Línea'   => $e->getLine(),
+                'Mensaje' => $e->getMessage(),
+            ]);
+            $output = [
+                'success' => false,
+                'msg'     => __('messages.something_went_wrong'),
+            ];
+        }
+
+        // Devuelve siempre JSON con cabecera correcta
+        return response()->json($output);
     }
 
     /**
@@ -41,17 +95,53 @@ class SubjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        if (request()->ajax()) {
+            $subject = Subject::find($id);
+            return view('materias/edit', compact('subject'));
+        }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        // if (! auth()->user()->can('user.update')) {
+        //     abort(403, 'Unauthorized action.');
+        // }
+
+        if (request()->ajax()) {
+            try {
+                $input = $request->only(['mat_car_id', 'mat_nombre', 'mat_descripcion']);
+
+                $subject = Subject::findOrFail($id);
+                $subject->mat_car_id = $input['mat_car_id'];
+                $subject->mat_nombre = $input['mat_nombre'];
+                $subject->mat_descripcion = $input['mat_descripcion'];
+
+                $subject->save();
+
+                $output = [
+                    'success' => true,
+                    'msg' => __('messages.updated_success'),
+                ];
+            } catch (\Exception $e) {
+                Log::emergency(__('messages.error_log'), [
+                    'Archivo' => $e->getFile(),
+                    'Línea'   => $e->getLine(),
+                    'Mensaje' => $e->getMessage(),
+                ]);
+
+                $output = [
+                    'success' => false,
+                    'msg' => __('messages.something_went_wrong'),
+                ];
+            }
+
+            return $output;
+        }
     }
 
     /**
@@ -59,6 +149,29 @@ class SubjectController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        if (request()->ajax()) {
+            try {
+                $subject = Subject::findOrFail($id);
+                $subject->delete();
+
+                $output = [
+                    'success' => true,
+                    'msg' => __('messages.deleted_success'),
+                ];
+            } catch (\Exception $e) {
+                Log::emergency(__('messages.error_log'), [
+                    'Archivo' => $e->getFile(),
+                    'Línea'   => $e->getLine(),
+                    'Mensaje' => $e->getMessage(),
+                ]);
+
+                $output = [
+                    'success' => false,
+                    'msg' => __('messages.something_went_wrong'),
+                ];
+            }
+
+            return $output;
+        }
     }
 }

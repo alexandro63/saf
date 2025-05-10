@@ -179,7 +179,6 @@ class DegreeController extends Controller
         $page = $request->input('page', 1);
 
         $degrees = Degree::where('car_nombre', 'like', '%' . $term . '%');
-
         return $degrees->paginate(5, ['*'], 'page', $page);
     }
 }

@@ -66,7 +66,7 @@ class PeopleController extends Controller
         $status = $request->has('per_estado') ? 1 : 0;
         try {
             $input = $request->only(['per_nombres', 'per_apellidopat', 'per_apellidomat', 'per_ci', 'per_direccion', 'per_telefono', 'per_celular', 'per_estado']);
-            $input['staper_estadotus'] = $status;
+            $input['per_estado'] = $status;
             $person  = People::create($input);
 
             $output = [
