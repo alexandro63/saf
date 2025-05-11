@@ -33,6 +33,14 @@ return [
             'isActive' => 'registration.*'
         ],
 
+        [
+            'type'     => 'menu',
+            'route'    => 'settings',
+            'title'    => 'Configuraciones',
+            'icon'     => 'fas fa-cogs',
+            'activeOn' => 'settings.*',
+        ],
+
     ],
 
     // Definición de los children
@@ -63,6 +71,10 @@ return [
         ],
 
         'registration' => [
+            [
+                'route' => 'classrooms.index',
+                'title' => 'Ambientes',
+            ],
             [
                 'route' => 'degrees.index',
                 'title' => 'Carreras',

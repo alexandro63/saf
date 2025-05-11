@@ -2,6 +2,7 @@
     content: " *";
     color: red;
     font-weight: bold;
+    font-size: medium;
 }
 .alert {
     z-index: 1061 !important;

@@ -18,6 +18,7 @@ use App\Http\Controllers\AdministrativeController;
 use App\Http\Controllers\EnrolledStudentController;
 use App\Http\Controllers\TeacherSettingsController;
 use App\Http\Controllers\AcademicPlanningController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\StudentEnrollmentController;
 
 Route::get('/', function () {
@@ -88,4 +89,8 @@ Route::middleware(['atlantis_menu', 'setSessionData'])->group(function () {
     Route::resource('registration/enrolled_students', EnrolledStudentController::class);
 
     /**Reports */
+
+
+    /**Settings System */
+    Route::get('settings-system', [SettingController::class, 'index'])->name('settings');
 });
