@@ -13,12 +13,11 @@ return new class extends Migration
     {
         Schema::create('ac_materia', function (Blueprint $table) {
             $table->id('mat_id');
-            $table->unsignedBigInteger('mat_car_id');
-            $table->foreign('mat_car_id')->references('car_id')->on('ac_carrera')->onDelete('cascade');
+
+            $table->foreignId('mat_car_id')->constrained('ac_carrera','car_id')->onDelete('cascade');
             $table->string('mat_nombre');
             $table->string('mat_descripcion')->nullable();
 
-            $table->index('mat_car_id');
             $table->timestamps();
         });
     }

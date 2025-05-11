@@ -13,15 +13,14 @@ return new class extends Migration
     {
         Schema::create('ac_docente', function (Blueprint $table) {
             $table->id('doc_id');
-            $table->unsignedBigInteger('doc_per_id');
-            $table->foreign('doc_per_id')->references('per_id')->on('gr_persona')->onDelete('cascade');
+
+            $table->foreignId('doc_per_id')->constrained('gr_persona','per_id')->onDelete('cascade');
             $table->string('doc_grado_academico');
             $table->integer('doc_pago');
             $table->string('doc_observaciones')->nullable();
             $table->boolean('doc_estado')->default(0);
             $table->date('doc_fec_ing');
 
-            $table->index('doc_per_id');
             $table->timestamps();
         });
     }

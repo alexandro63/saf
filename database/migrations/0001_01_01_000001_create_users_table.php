@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('user_name');
-            $table->unsignedBigInteger('per_id');
-            $table->foreign('per_id')->references('per_id')->on('gr_persona')->onDelete('cascade');
-            $table->tinyInteger('status')->default(1);
+
+            $table->foreignId('per_id')->constrained('gr_persona', 'per_id')->onDelete('cascade');
+
+            $table->boolean('status')->default(1);
             $table->text('obs')->nullable();
             $table->char('language', 7)->default('es');
             $table->string('email')->unique()->nullable();

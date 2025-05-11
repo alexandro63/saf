@@ -104,7 +104,7 @@ class ClassroomController extends Controller
     {
         if (request()->ajax()) {
             $classroom = Classroom::find($id);
-            return view('ambientes/edit', compact('classroom'));
+            return view('ambientes.edit', compact('classroom'));
         }
     }
 
@@ -179,5 +179,16 @@ class ClassroomController extends Controller
 
             return $output;
         }
+    }
+
+    public function getClassroomsData(Request $request)
+    {
+        $term = $request->input('term');
+        $page = $request->input('page', 1);
+
+        $classrooms = Classroom::where('amb_nombre', 'like', '%' . $term . '%')
+            ->paginate(5, ['*'], 'page', $page);
+
+        return response()->json($classrooms);
     }
 }

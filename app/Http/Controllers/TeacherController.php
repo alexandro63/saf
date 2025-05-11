@@ -194,4 +194,19 @@ class TeacherController extends Controller
             return $output;
         }
     }
+
+    public function getTeachersData(Request $request)
+    {
+        $term = $request->input('term');
+        $page = $request->input('page', 1);
+
+        $teachers = Teacher::whereHas('people', function ($query) use ($term) {
+            $query->where('per_ci', $term)
+                ->orWhere('per_nombres', 'like', '%' . $term . '%')
+                ->orWhere('per_apellidopat', 'like', '%' . $term . '%')
+                ->orWhere('per_apellidomat', 'like', '%' . $term . '%');
+        });
+
+        return $teachers->with('people')->paginate(5, ['*'], 'page', $page);
+    }
 }

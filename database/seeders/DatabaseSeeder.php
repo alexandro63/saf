@@ -34,17 +34,17 @@ class DatabaseSeeder extends Seeder
         $batchSize = 1000;
         $total = 1000;
 
-        for ($i = 0; $i < ($total / $batchSize); $i++) {
-            $peopleBatch = People::factory($batchSize)->create();
-            foreach ($peopleBatch as $person) {
-                User::factory()->create([
-                    'user_name' => fake()->unique()->userName(),
-                    'per_id'    => $person->per_id,
-                    'status'    => rand(0, 1),
-                    'email'     => $person->per_nombres . '.' . $person->per_id . '@gmail.com',
-                    'password'  => bcrypt('123456'),
-                ]);
-            }
-        }
+        // for ($i = 0; $i < ($total / $batchSize); $i++) {
+        //     $peopleBatch = People::factory($batchSize)->create();
+        //     foreach ($peopleBatch as $person) {
+        //         User::factory()->create([
+        //             'user_name' => fake()->unique()->userName(),
+        //             'per_id'    => $person->per_id,
+        //             'status'    => rand(0, 1),
+        //             'email'     => $person->per_nombres . '.' . $person->per_id . '@gmail.com',
+        //             'password'  => bcrypt('123456'),
+        //         ]);
+        //     }
+        // }
     }
 }

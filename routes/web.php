@@ -59,6 +59,7 @@ Route::middleware(['atlantis_menu', 'setSessionData'])->group(function () {
 
     // Teachers
     Route::resource('registration/teachers', TeacherController::class);
+    Route::get('registration/get-teachers', [TeacherController::class, 'getTeachersData']);
 
     //Degrees
     Route::resource('registration/degrees', DegreeController::class);
@@ -66,9 +67,11 @@ Route::middleware(['atlantis_menu', 'setSessionData'])->group(function () {
 
     //Subjets
     Route::resource('registration/subjects', SubjectController::class);
+    Route::get('registration/get-subjects', [SubjectController::class, 'getSubjectsData']);
 
     //Classrooms
     Route::resource('registration/classrooms', ClassroomController::class);
+    Route::get('registration/get-classrooms', [ClassroomController::class, 'getClassroomsData']);
 
     //Teacher Settings
     Route::resource('registration/others/teacher_settings', TeacherSettingsController::class);

@@ -43,7 +43,7 @@ return new class extends Migration
             $table->string('per_barrio', 60)->nullable();
             $table->string('per_datos_adicionales', 100)->nullable();
             $table->string('per_ci_proced', 20)->nullable();
-            $table->tinyInteger('per_estado')->default(1);
+            $table->boolean('per_estado')->default(1);
             $table->timestamps();
         });
     }

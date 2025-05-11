@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id('gru_id');
             $table->string('gru_nombre');
             $table->text('gru_obs')->nullable();
-            $table->tinyInteger('gru_estado')->default(1);
+            $table->boolean('gru_estado')->default(1);
             $table->timestamps();
         });
     }

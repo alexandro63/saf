@@ -174,4 +174,13 @@ class SubjectController extends Controller
             return $output;
         }
     }
+
+    public function getSubjectsData(Request $request)
+    {
+        $term = $request->input('term');
+        $page = $request->input('page', 1);
+
+        $subjects = Subject::where('mat_nombre', 'like', '%' . $term . '%');
+        return $subjects->paginate(5, ['*'], 'page', $page);
+    }
 }

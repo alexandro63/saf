@@ -14,15 +14,12 @@ return new class extends Migration
 
         Schema::create('ad_grupo_usuario', function (Blueprint $table) {
             $table->id('gus_id');
-            $table->unsignedBigInteger('gus_usu_id');
-            $table->foreign('gus_usu_id')->references('id')->on('users')->onDelete('cascade');
-            $table->unsignedBigInteger('gus_gru_id');
-            $table->foreign('gus_gru_id')->references('gru_id')->on('ad_grupo')->onDelete('cascade');
-            $table->index('gus_usu_id');
-            $table->index('gus_gru_id');
+
+            $table->foreignId('gus_usu_id')->constrained('users', 'id')->onDelete('cascade');
+            $table->foreignId('gus_gru_id')->constrained('ad_grupo', 'gru_id')->onDelete('cascade');
+
             $table->timestamps();
         });
-
     }
 
     /**
