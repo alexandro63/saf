@@ -73,8 +73,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $status = $request->has('status') ? 1 : 0;
         try {
+            $status = $request->has('status') ? 1 : 0;
             $input = $request->only(['per_id', 'user_name', 'password']);
             $input['status'] = $status;
             $user  = User::create($input);

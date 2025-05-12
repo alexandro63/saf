@@ -51,10 +51,7 @@
                                 <select class="form-control" name="plan_doc_id" id="plan_doc_id">
                                     @if (!empty($academic_planning->plan_doc_id))
                                         <option value="{{ $academic_planning->plan_doc_id }}" selected>
-                                            (C.I. {{ $academic_planning->teacher->people->per_ci }})
-                                            {{ $academic_planning->teacher->people->per_nombres }}
-                                            {{ $academic_planning->teacher->people->per_apellidopat }}
-                                            {{ $academic_planning->teacher->people->per_apellidomat }}
+                                            (C.I. {{ $academic_planning->teacher->people->per_ci }}) {{ $academic_planning->teacher->people->per_nombres }} {{ $academic_planning->teacher->people->per_apellidopat }} {{ $academic_planning->teacher->people->per_apellidomat }}
                                         </option>
                                     @endif
                                 </select>
@@ -218,7 +215,7 @@
                         Anterior</button>
                     <button type="button" class="btn btn-primary" id="nextBtn">Siguiente →</button>
                     <button type="submit" class="btn btn-primary" id="submitBtn"
-                        style="display: none;">Guardar</button>
+                        style="display: none;">Actualizar</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                 </div>
             </form>

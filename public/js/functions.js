@@ -284,6 +284,12 @@ function updateAjaxForm(
     });
 }
 
+/**SHOW DATA MODAL */
+function showAjaxData(modalSelector)
+{
+
+}
+
 /**DELETED REGISTER ALERT*/
 function deleteAjaxConfirmation({ selector, table = null }) {
     $(document).on("click", selector, function () {

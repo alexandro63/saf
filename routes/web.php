@@ -74,7 +74,7 @@ Route::middleware(['atlantis_menu', 'setSessionData'])->group(function () {
     Route::get('registration/get-classrooms', [ClassroomController::class, 'getClassroomsData']);
 
     //Teacher Settings
-    Route::resource('registration/others/teacher_settings', TeacherSettingsController::class);
+    Route::resource('registration/teacher_settings', TeacherSettingsController::class);
 
     //Academic Planning
     Route::resource('registration/academic_planning', AcademicPlanningController::class);
