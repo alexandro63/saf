@@ -233,7 +233,7 @@ class PermissionsTableSeeder extends Seeder
 
 
         $insert_data = [];
-        $time_stamp = Carbon::now()->toDateTimeString(); // Corrected typo
+        $time_stamp = Carbon::now()->toDateTimeString();
 
         // Flatten and insert the permissions
         foreach ($data as $permissions) {

@@ -22,7 +22,7 @@
                 @csrf
                 @method('PUT')
                 <div class="row">
-                    <div class="col-sm-12 ">
+                    <div class="col-md-6">
                         <div class="form-group form-group-default required">
                             <label>Persona</label>
                             <select class="form-control" name="per_id" id="per_id">
@@ -30,7 +30,21 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-6 pr-0 ">
+                    <div class="col-md-6">
+                        <div class="form-group form-group-default required">
+                            <label for="role">Permiso</label>
+                            <select class="form-control" name="role" class="form-control">
+                                @foreach ($roles as $key => $role)
+                                    <option value="{{ $key }}" selected>
+                                        {{-- {{ $key ? 'selected' : '' }}> --}}
+                                        {{ $role }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
                         <div class="form-group form-group-default required">
                             <label>Nombre de Usuario</label>
                             <input name="user_name" type="text" class="form-control" placeholder="Ingrese usuario"

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Yajra\DataTables\DataTables;
+use Yajra\DataTables\Facades\DataTables;
 use App\Models\StudentEnrollment;
 use Illuminate\Support\Facades\Log;
 
@@ -67,6 +67,7 @@ class StudentEnrollmentController extends Controller
                 ->editColumn('alu_estado', function ($row) {
                     return $row->alu_estado ? 'Sí' : 'No';
                 })
+                ->removeColumn(['alu_id'])
                 ->rawColumns(['action'])
                 ->make(true);
         }

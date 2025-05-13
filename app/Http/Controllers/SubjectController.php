@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Subject;
 use Illuminate\Http\Request;
-use Yajra\DataTables\DataTables;
+use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Log;
 
 class SubjectController extends Controller
@@ -40,6 +40,7 @@ class SubjectController extends Controller
                 ->editColumn('car_nombre', function ($row) {
                     return $row->degree->car_nombre;
                 })
+                ->removeColumn(['mat_id'])
                 ->rawColumns(['action'])
                 ->make(true);
         }

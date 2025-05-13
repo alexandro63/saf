@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Classroom;
 use Illuminate\Http\Request;
 use App\Helpers\OrdinalHelper;
-use Yajra\DataTables\DataTables;
+use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Log;
 
 class ClassroomController extends Controller
@@ -44,6 +44,7 @@ class ClassroomController extends Controller
                 ->editColumn('amb_piso', function ($row) {
                     return $row->amb_piso ? '<span class="badge badge-info">' . OrdinalHelper::str_ordinal($row->amb_piso) . '</span>' : 'S/D';
                 })
+                ->removeColumn('amb_id')
                 ->rawColumns(['action', 'amb_capacidad', 'amb_piso'])
                 ->make(true);
         }

@@ -3,14 +3,53 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Carbon\Carbon;
+use App\Utils\Util;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+use Yajra\DataTables\Facades\DataTables;
 
 class RoleController extends Controller
 {
+    protected $util;
+
+    public function __construct(Util $util)
+    {
+        $this->util = $util;
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+        if (request()->ajax()) {
+
+            $roles = Role::select(['id', 'name']);
+
+            return Datatables::of($roles)
+                ->addColumn('action', function ($row) {
+                    $editUrl = route('roles.edit', $row->id);
+                    $deleteUrl = route('roles.destroy', $row->id);
+
+                    $buttons = '
+                    <button data-href="' . $editUrl . '" class="btn btn-icon btn-round btn-primary edit_role">
+                        <i class="icon-pencil"></i>
+                    </button>
+                    &nbsp;';
+
+                    $buttons .= '
+                    <button data-href="' . $deleteUrl . '" class="btn btn-icon btn-round btn-danger delete_role">
+                        <i class="icon-trash"></i>
+                    </button>';
+
+
+                    return $buttons;
+                })
+                ->removeColumn('id')
+                ->rawColumns(['action'])
+                ->make(true);
+        }
         return view('permisos.index');
     }
 
@@ -19,7 +58,8 @@ class RoleController extends Controller
      */
     public function create()
     {
-        //
+        $permissions = Permission::pluck('name')->toArray();
+        return view('permisos.create', compact('permissions'));
     }
 
     /**
@@ -27,7 +67,57 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // if (! auth()->user()->can('roles.create')) {
+        //     abort(403, 'Unauthorized action.');
+        // }
+
+        try {
+            $role_name = $request->input('name');
+            $permissions = $request->input('permissions');
+
+            $count = Role::where('name', $role_name)
+                ->count();
+
+            if ($count == 0) {
+                $role = Role::create([
+                    'name' => $role_name
+                ]);
+
+                $radio_options = $request->input('radio_option');
+                if (! empty($radio_options)) {
+                    foreach ($radio_options as $key => $value) {
+                        $permissions[] = $value;
+                    }
+                }
+
+                $this->__createPermissionIfNotExists($permissions);
+
+                if (! empty($permissions)) {
+                    $role->syncPermissions($permissions);
+                }
+                $output = [
+                    'success' => true,
+                    'msg'     => __('messages.add_success'),
+                ];
+            } else {
+                $output = [
+                    'success' => false,
+                    'msg' => __('messages.already_exists'),
+                ];
+            }
+        } catch (\Exception $e) {
+            Log::emergency(__('messages.error_log'), [
+                'Archivo' => $e->getFile(),
+                'Línea'   => $e->getLine(),
+                'Mensaje' => $e->getMessage(),
+            ]);
+            $output = [
+                'success' => false,
+                'msg'     => __('messages.something_went_wrong'),
+            ];
+        }
+
+        return response()->json($output);
     }
 
     /**
@@ -43,7 +133,22 @@ class RoleController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        // if (! auth()->user()->can('roles.update')) {
+        //     abort(403, 'Unauthorized action.');
+        // }
+
+        if (request()->ajax()) {
+            $role = Role::with(['permissions'])
+                ->find($id);
+
+            $permissions = Permission::pluck('name')->toArray();
+            $role_permissions = [];
+            foreach ($role->permissions as $role_perm) {
+                $role_permissions[] = $role_perm->name;
+            }
+            return view('permisos.edit')
+                ->with(compact('role', 'role_permissions', 'permissions'));
+        }
     }
 
     /**
@@ -51,7 +156,57 @@ class RoleController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // if (! auth()->user()->can('roles.update')) {
+        //     abort(403, 'Unauthorized action.');
+        // }
+        if (request()->ajax()) {
+            try {
+                $role_name = $request->input('name');
+                $permissions = $request->input('permissions');
+                $count = Role::where('name', $role_name)
+                    ->where('id', '!=', $id)
+                    ->count();
+                if ($count == 0) {
+                    $role = Role::findOrFail($id);
+
+                    if (! $role->is_default) {
+                        $role->name = $role_name;
+                        $role->save();
+                        $this->__createPermissionIfNotExists($permissions);
+
+                        if (! empty($permissions)) {
+                            $role->syncPermissions($permissions);
+                        }
+
+                        $output = [
+                            'success' => true,
+                            'msg' => __('user.edit_success'),
+                        ];
+                    } else {
+                        $output = [
+                            'success' => false,
+                            'msg' => __('messages.is_default'),
+                        ];
+                    }
+                } else {
+                    $output = [
+                        'success' => false,
+                        'msg' => __('messages.already_exists'),
+                    ];
+                }
+            } catch (\Exception $e) {
+                Log::emergency(__('messages.error_log'), [
+                    'Archivo' => $e->getFile(),
+                    'Línea'   => $e->getLine(),
+                    'Mensaje' => $e->getMessage(),
+                ]);
+                $output = [
+                    'success' => false,
+                    'msg'     => __('messages.something_went_wrong'),
+                ];
+            }
+            return $output;
+        }
     }
 
     /**
@@ -59,6 +214,67 @@ class RoleController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        if (request()->ajax()) {
+            try {
+                $role = Role::findOrFail($id);
+                $role->delete();
+
+                $output = [
+                    'success' => true,
+                    'msg' => __('messages.deleted_success'),
+                ];
+            } catch (\Exception $e) {
+                Log::emergency(__('messages.error_log'), [
+                    'Archivo' => $e->getFile(),
+                    'Línea'   => $e->getLine(),
+                    'Mensaje' => $e->getMessage(),
+                ]);
+
+                $output = [
+                    'success' => false,
+                    'msg' => __('messages.something_went_wrong'),
+                ];
+            }
+
+            return $output;
+        }
+    }
+
+    private function __createPermissionIfNotExists($permissions)
+    {
+        $exising_permissions = Permission::whereIn('name', $permissions)
+            ->pluck('name')
+            ->toArray();
+
+        $non_existing_permissions = array_diff($permissions, $exising_permissions);
+
+        if (! empty($non_existing_permissions)) {
+            foreach ($non_existing_permissions as $new_permission) {
+                $time_stamp = Carbon::now()->toDateTimeString();
+                Permission::create([
+                    'name' => $new_permission,
+                    'guard_name' => 'web',
+                ]);
+            }
+        }
+    }
+
+    public function getRoleData()
+    {
+        $roles_array = Role::pluck('name', 'id');
+        $roles = [];
+
+        $is_admin = $this->util->is_admin(auth()->user());
+
+        foreach ($roles_array as $key => $value) {
+            if (!$is_admin && $value == 'Admin') {
+                continue;
+            }
+            $roles[$key] = $value;
+        }
+
+        return $roles;
+
+        dd($roles);
     }
 }

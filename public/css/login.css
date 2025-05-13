@@ -1,0 +1,376 @@
+/* login */
+
+
+/*-- reset --*/
+
+#titlee {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+
+/*-- start editing from here --*/
+
+.txt-rt {
+    text-align: right;
+}
+
+
+/* text align right */
+
+.txt-lt {
+    text-align: left;
+}
+
+
+/* text align left */
+
+.txt-center {
+    text-align: center;
+}
+
+
+/* text align center */
+
+.float-rt {
+    float: right;
+}
+
+
+/* float right */
+
+.float-lt {
+    float: left;
+}
+
+
+/* float left */
+
+.clear {
+    clear: both;
+}
+
+
+/* clear float */
+
+.pos-relative {
+    position: relative;
+}
+
+
+/* Position Relative */
+
+.pos-absolute {
+    position: absolute;
+}
+
+
+/* Position Absolute */
+
+.vertical-base {
+    vertical-align: baseline;
+}
+
+
+/* vertical align baseline */
+
+.vertical-top {
+    vertical-align: top;
+}
+
+
+/* vertical align top */
+
+nav.vertical ul li {
+    display: block;
+}
+
+
+/* vertical menu */
+
+nav.horizontal ul li {
+    display: inline-block;
+}
+
+
+/* horizontal menu */
+
+
+/* img {
+    max-width: 100%;
+} */
+
+
+/*-- end reset --*/
+
+
+/*-- main --*/
+
+#titlee {
+    font-size: 45px;
+    color: #fff;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    text-align: center;
+    padding: 1em 0 0.4em 0;
+}
+
+
+/*-- slide --*/
+
+@keyframes slideleft {
+    from {
+        background-position: 0%;
+    }
+    to {
+        background-position: 90000%;
+    }
+}
+
+@-webkit-keyframes slideleft {
+    from {
+        background-position: 0%;
+    }
+    to {
+        background-position: 90000%;
+    }
+}
+
+.w3layouts-main {
+    background-image: url(../img/images/login.png);
+    background-repeat: repeat-x;
+    /* animation: slideleft 20000s infinite linear;
+    -webkit-animation: slideleft 20000s infinite linear;
+    -webkit-background-size: cover;
+    -moz-background-size: cover; */
+    background-attachment: fixed;
+    position: relative;
+    min-height: 100vh;
+    background-position: center center;
+    background-size: cover;
+}
+
+.bg-layer {
+    background: rgba(0, 0, 0, 0.7);
+    min-height: 100vh;
+}
+
+
+/*-- //slide --*/
+
+
+/*--header start here--*/
+
+.w3ls-header {
+    padding: 0em 0 0;
+}
+
+.icon1 {
+    margin: 0 0 1em;
+    padding: .8em 1em;
+    background: rgba(255, 255, 255, 0.94);
+}
+
+.icon1 span.fa {
+    color: rgb(7, 50, 143);
+    width: 22px;
+}
+
+.icon1 span.glyphicon {
+    color: rgb(7, 50, 143);
+    width: 22px;
+}
+
+.icon1 span.fas {
+    color: rgb(7, 50, 143);
+    width: 22px;
+}
+
+.main-icon {
+    text-align: center;
+}
+
+.main-icon span.fa {
+    font-size: 50px;
+    color: #fff;
+    margin-bottom: 1em;
+}
+
+.wthree li {
+    display: inline-block;
+}
+
+.bottom {
+    margin: 1em 0 0;
+}
+
+.header-main {
+    max-width: 450px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 999;
+    padding: 3em 2em;
+    background: rgba(255, 255, 255, 0.04);
+    -webkit-box-shadow: -1px 4px 28px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: -1px 4px 28px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: -1px 4px 28px 0px rgba(0, 0, 0, 0.75);
+}
+
+.header-left {
+    background: #fff;
+    padding: 0px;
+}
+
+/* ::-webkit-input-placeholder {
+    color: rgb(34, 150, 100)!important;
+} */
+
+.header-left-bottom input[type="text"] {
+    outline: none;
+    font-size: 15px;
+    color: #222;
+    border: none;
+    width: 90%;
+    display: inline-block;
+    background: transparent;
+    letter-spacing: 1px;
+}
+
+.header-left-bottom input[type="email"] {
+    outline: none;
+    font-size: 15px;
+    color: #222;
+    border: none;
+    width: 90%;
+    display: inline-block;
+    background: transparent;
+    letter-spacing: 1px;
+}
+
+.header-left-bottom input[type="password"] {
+    outline: none;
+    font-size: 15px;
+    color: #222;
+    border: none;
+    width: 90%;
+    display: inline-block;
+    background: transparent;
+    letter-spacing: 1px;
+}
+
+.header-left-bottom button.btn {
+    background: #0e466b;
+    color: #fff;
+    font-size: 15px;
+    text-transform: uppercase;
+    padding: .8em 2em;
+    letter-spacing: 1px;
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    display: inline-block;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    width: 100%;
+}
+
+.eye i {
+    float: right;
+    display: inline-block;
+    margin-top: -15px;
+}
+
+
+/*-- agileits --*/
+
+.header-left-bottom p {
+    font-size: 17px;
+    color: #000;
+    display: inline-block;
+    width: 50%;
+    margin: 20px 0 0;
+    letter-spacing: 1px;
+    float: left;
+}
+
+.header-left-bottom p.right {
+    text-align: right;
+}
+
+.header-left-bottom p a {
+    font-size: 11px;
+    color: #e2e2e2;
+    text-transform: uppercase;
+}
+
+.login-check {
+    position: relative;
+}
+
+.checkboxs {
+    position: relative;
+    display: block;
+    padding-left: 30px;
+    text-transform: capitalize;
+    letter-spacing: 1px;
+    font-size: 14px;
+    color: #fff;
+}
+
+
+/*-- responsive-design --*/
+
+@media(max-width:667px) {
+    #titlee {
+        font-size: 40px;
+        letter-spacing: 3px;
+    }
+    .eye i {
+        float: right;
+        display: inline-block;
+        margin-top: 5px;
+    }
+    .header-left-bottom input[type="email"],
+    .header-left-bottom input[type="text"],
+    .header-left-bottom input[type="password"] {
+        width: 70%;
+    }
+}
+
+@media(max-width:415px) {
+    #titlee {
+        font-size: 35px;
+        letter-spacing: 3px;
+    }
+}
+
+@media(max-width:384px) {
+    .main-icon span.fa {
+        margin-bottom: .6em;
+    }
+    .header-main {
+        max-width: 310px;
+        margin: 0 1em;
+    }
+    .header-left-bottom input[type="email"],
+    .header-left-bottom input[type="text"],
+    .header-left-bottom input[type="password"] {
+        width: 70%;
+    }
+    #titlee {
+        font-size: 30px;
+    }
+}
+
+
+/*-- //responsive-design --*/
+
+
+/* fin login */

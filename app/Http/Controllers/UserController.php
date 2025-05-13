@@ -4,14 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\DataTables\UsersDataTable;
-use App\Models\People;
+use App\Utils\Util;
+use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
 {
+
+    protected $util;
+    public function __construct(Util $util)
+    {
+        return $this->util = $util;
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -53,6 +62,7 @@ class UserController extends Controller
                 ->editColumn('status', function ($row) {
                     return $row->status == 1 ? 'Sí' : 'No';
                 })
+                ->removeColumn(['id'])
                 ->rawColumns(['action'])
                 ->make(true);
         }
@@ -65,7 +75,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('usuarios.create');
+        $roles = $this->util->getRoleData();
+        return view('usuarios.create', compact('roles'));
     }
 
     /**
@@ -76,8 +87,10 @@ class UserController extends Controller
         try {
             $status = $request->has('status') ? 1 : 0;
             $input = $request->only(['per_id', 'user_name', 'password']);
+            $role = Role::findOrFail($request->input('role'));
             $input['status'] = $status;
             $user  = User::create($input);
+            $user->assignRole($role->name);
 
             $output = [
                 'success' => true,
@@ -115,7 +128,8 @@ class UserController extends Controller
     {
         if (request()->ajax()) {
             $user = User::find($id);
-            return view('usuarios/edit', compact('user'));
+            $roles = $this->util->getRoleData();
+            return view('usuarios/edit', compact('user', 'roles'));
         }
     }
 
@@ -136,15 +150,35 @@ class UserController extends Controller
                 $user->user_name = $input['user_name'];
                 $user->per_id = $input['per_id'];
                 if (!empty($input['password'])) {
-                    $user->password = bcrypt($input['password']);
+                    $user->password = Hash::make($input['password']);
                 }
                 $user->status = $request->has('status') ? 1 : 0;
-                $user->save();
+                DB::beginTransaction();
+                $user->update();
+                $role_id = $request->input('role');
+                $user_role = $user->roles->first();
+                $previous_role = !empty($user_role->id) ? $user_role->id : 0;
+                if ($previous_role != $role_id) {
+                    $is_admin = $this->util->is_admin($user);
+                    $all_admins = $this->util->getAdmins();
+                    if ($is_admin && count($all_admins) <= 1) {
+                        return   $output = [
+                            'success' => false,
+                            'msg' => __('messages.cannot_change'),
+                        ];
+                    }
+                    if (!empty($previous_role)) {
+                        $user->removeRole($user_role->name);
+                    }
 
+                    $role = Role::findOrFail($role_id);
+                    $user->assignRole($role->name);
+                }
                 $output = [
                     'success' => true,
                     'msg' => __('messages.updated_success'),
                 ];
+                DB::commit();
             } catch (\Exception $e) {
                 Log::emergency(__('messages.error_log'), [
                     'Archivo' => $e->getFile(),

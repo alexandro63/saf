@@ -44,6 +44,7 @@ class PeopleController extends Controller
                 ->editColumn('per_estado', function ($row) {
                     return $row->per_estado == 1 ? 'Sí' : 'No';
                 })
+                ->removeColumn(['per_id'])
                 ->rawColumns(['action'])
                 ->make(true);
         }

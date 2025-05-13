@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Teacher;
 use Illuminate\Http\Request;
-use Yajra\DataTables\DataTables;
+use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Log;
 
 class TeacherController extends Controller
@@ -52,6 +52,7 @@ class TeacherController extends Controller
                 ->editColumn('doc_estado', function ($row) {
                     return $row->doc_estado == 1 ? 'Sí' : 'No';
                 })
+                ->removeColumn(['doc_id'])
                 ->rawColumns(['action'])
                 ->make(true);
         }

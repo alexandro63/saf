@@ -39,6 +39,7 @@ class GroupUserController extends Controller
                 ->editColumn('gru_estado', function ($row) {
                     return $row->gru_estado == 1 ? 'Sí' : 'No';
                 })
+                ->removeColumn(['grud_id'])
                 ->rawColumns(['action'])
                 ->make(true);
         }

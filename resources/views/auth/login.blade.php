@@ -1,6 +1,6 @@
 @extends('layouts.auth')
 
-@section('content')
+{{-- @section('content')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -76,4 +76,60 @@
             </div>
         </div>
     </div>
+@endsection --}}
+@section('title', __('lang_v1.login'))
+
+@section('content')
+    <div class="header-left-bottom">
+        <form method="POST" action="{{ route('login') }}" id="login-form">
+          @csrf
+            <div class="icon1 {{ $errors->has('user_name') ? ' has-error' : '' }}">
+                <span class="fa fa-user"></span>
+                <input id="user_name" type="text" name="user_name" required autofocus placeholder="Nombre de ususario"
+                    value="{{ old('user_name') }}">
+                @error('user_name')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+
+            <div class="icon1 {{ $errors->has('password') ? ' has-error' : '' }}">
+                <span class="fa fa-lock"></span>
+                <input id="password" type="password" name="password" required placeholder="********">
+                <span class="eye" onclick="mostrarContrasena()"><i class="fas fa-eye-slash icon"></i></span>
+                @if ($errors->has('password'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('password') }}</strong>
+                    </span>
+                @endif
+            </div>
+            {{-- <div class="login-check">
+                <label class="checkboxs">
+                    <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Recuerdame
+                </label>
+            </div> --}}
+
+            <div class="bottom">
+                <button type="submit" class="btn btn-primary">Iniciar session</button>
+            </div>
+        </form>
+    </div>
+
+@stop
+@section('javascript')
+    <script type="text/javascript">
+
+        function mostrarContrasena() {
+            var tipo = document.getElementById("password");
+            if (tipo.type == "password") {
+                tipo.type = "text";
+                $('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+            } else {
+                tipo.type = "password";
+                $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
+            }
+        };
+        document.addEventListener('contextmenu', event => event.preventDefault())
+    </script>
 @endsection

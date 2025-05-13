@@ -21,7 +21,7 @@
             <form action="{{ route('users.store') }}" method="POST" id="add_user">
                 @csrf
                 <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col-md-6">
                         <div class="form-group form-group-default required">
                             <label for="per_id">Persona</label>
                             <select class="form-control" name="per_id" id="per_id" style="width: 100%">
@@ -29,7 +29,18 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-6 pr-0 ">
+                    <div class="col-md-6">
+                        <div class="form-group form-group-default required">
+                            <label for="role">Permiso</label>
+                            <select class="form-control" name="role" id="role" style="width: 100%">
+                                <option value="" disabled selected>Seleccione</option>
+                                @foreach ($roles as $key => $role)
+                                    <option value="{{$key}}">{{$role}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
                         <div class="form-group form-group-default required">
                             <label>Nombre de Usuario</label>
                             <input name="user_name" type="text" class="form-control" placeholder="Ingrese usuario">

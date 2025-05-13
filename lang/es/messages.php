@@ -7,5 +7,8 @@ return [
     'updated_success' => 'Actualizado con exito!',
     'deleted_success' => 'Eliminado con exito!',
     'edit' => 'Editar',
-    'delete' => 'Eliminar'
+    'delete' => 'Eliminar',
+    'already_exists' => 'El registro ya exite!',
+    'is_default' => 'Es por defecto',
+    'cannot_change' => 'No se puede Cambiar'
 ];

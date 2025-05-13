@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\AcademicPlanning;
-use Yajra\DataTables\DataTables;
+use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Log;
 
 class AcademicPlanningController extends Controller
@@ -45,6 +45,7 @@ class AcademicPlanningController extends Controller
                 ->addColumn('docente', function ($row) {
                     return $row->teacher->people->per_apellidopat . ' ' . $row->teacher->people->per_apellidomat . ' ' . $row->teacher->people->per_nombres;
                 })
+                ->removeColumn('plan_id')
                 ->rawColumns(['action'])
                 ->make(true);
         }

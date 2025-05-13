@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Degree;
 use Illuminate\Http\Request;
-use Yajra\DataTables\DataTables;
+use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Log;
 
 class DegreeController extends Controller
@@ -37,6 +37,7 @@ class DegreeController extends Controller
 
                     return $buttons;
                 })
+                ->removeColumn("car_id")
                 ->rawColumns(['action'])
                 ->make(true);
         }

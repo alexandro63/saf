@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\GroupAssign;
 use Illuminate\Http\Request;
-use Yajra\DataTables\DataTables;
+use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Log;
 
 class GroupAssignController extends Controller
@@ -44,6 +44,7 @@ class GroupAssignController extends Controller
 
                     return $buttons;
                 })
+                ->removeColumn("gus_id")
                 ->rawColumns(['action'])
                 ->make(true);
         }

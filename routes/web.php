@@ -34,13 +34,14 @@ Route::middleware(['atlantis_menu', 'setSessionData'])->group(function () {
 
     /**Administration*/
 
+    //Roles
+    Route::resource('administration/roles', RoleController::class);
+    Route::get('administration/get-roles', [RoleController::class, 'getRoleData']);
+
+
     //Users
     Route::resource('administration/users', UserController::class);
     Route::get('administration/get-users', [UserController::class, 'getUserData']);
-
-
-    //Roles
-    Route::resource('administration/roles', RoleController::class);
 
     //Group User
     Route::resource('administration/group_users', GroupUserController::class);
